@@ -1,9 +1,10 @@
-ARG target
+ARG target=amd64
 FROM $target/debian:stretch
 COPY qemu-* /usr/bin
 
 LABEL version="0.4" description="Mosquitto and OwnTracks Recorder"
 LABEL authors="Jan-Piet Mens <jpmens@gmail.com>, Giovanni Angoli <juzam76@gmail.com>"
+
 LABEL maintainer="Jesse Stuart <hi@jessestuart.com>"
 
 ENV DEBIAN_FRONTEND noninteractive

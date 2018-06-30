@@ -1,9 +1,31 @@
-## Dockerfile for OwnTracks Recorder and Mosquitto
+## Docker multi-arch images for OwnTracks Recorder and Mosquitto
 
-This is a Dockerfile for the [OwnTracks Recorder](https://github.com/owntracks/recorder) which includes the [Mosquitto broker](http://mosquitto.org) as well as the Recorder proper. Documentation for running this is in the [Booklet](http://owntracks.org/booklet/clients/recorder/).
+[![CircleCI][circleci]][circleci 2] [![][microbadger]][microbadger 2]
 
-It sets Mosquitto broker (with TLS) as well as the OwnTracks Recorder for collecting [OwnTracks](http://owntracks.org) location data.
+Fork of the official [OwnTracks Recorder Docker image][github], with:
 
-Docker images are built automatically when we push Debian packages to the `recorder` repository, and these Docker images are available at [https://hub.docker.com/r/owntracks/recorderd/](https://hub.docker.com/r/owntracks/recorderd/).
+- Support for arm64 and armv7/armhf architectures.
+- Automated nightly CI builds.
 
-There's also a docker image based on alpine Linux with integrated MQTT for [Rpi and amd64 platforms](https://github.com/owntracks/recorder/issues/192).
+Note: this Dockerfile doesn't build OwnTracks from source, but relies on
+upstream `.deb` packages -- and thus will automatically pull in new versions as
+they're released, the next time a build is triggered on CircleCI (currently: on
+any commit to master, and at 12AM UTC / 8PM EST every evening.)
+
+> This is a Dockerfile for the [OwnTracks Recorder][github] which includes the
+> [Mosquitto broker][mosquitto] as well as the Recorder proper. Documentation
+> for running this is in the [Booklet][owntracks].
+>
+> It sets Mosquitto broker (with TLS) as well as the OwnTracks Recorder for
+> collecting [OwnTracks][owntracks 2] location data.
+
+[circleci]:
+  https://circleci.com/gh/jessestuart/owntracks-docker.svg?style=shield
+[circleci 2]: https://circleci.com/gh/jessestuart/owntracks-docker
+[github]: https://github.com/owntracks/recorder
+[microbadger]:
+  https://images.microbadger.com/badges/image/jessestuart/owntracks.svg
+[microbadger 2]: https://microbadger.com/images/jessestuart/owntracks
+[mosquitto]: http://mosquitto.org
+[owntracks]: http://owntracks.org/booklet/clients/recorder/
+[owntracks 2]: http://owntracks.org<Paste>
