@@ -1,20 +1,23 @@
 ARG target
 FROM $target/debian:stretch
+COPY qemu-* /usr/bin
+
 LABEL version="0.4" description="Mosquitto and OwnTracks Recorder"
-LABEL maintainer="Jesse Stuart <hi@jessestuart.com>"
 LABEL authors="Jan-Piet Mens <jpmens@gmail.com>, Giovanni Angoli <juzam76@gmail.com>"
+LABEL maintainer="Jesse Stuart <hi@jessestuart.com>"
+
+ENV DEBIAN_FRONTEND noninteractive
 
 ADD http://repo.owntracks.org/repo.owntracks.org.gpg.key /tmp/owntracks.gpg.key
 
-RUN apt-get update && \
+RUN \
+  apt-get update && \
   apt-get install -y gnupg && \
   apt-key add /tmp/owntracks.gpg.key && \
   apt-get update && \
   apt-get install -y software-properties-common net-tools && \
   apt-add-repository 'deb http://repo.owntracks.org/debian stretch main' && \
-  apt-get update
-
-RUN \
+  apt-get update && \
   apt-get install -y \
     libmosquitto1 \
     libsodium18 \
