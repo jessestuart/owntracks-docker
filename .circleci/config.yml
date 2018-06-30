@@ -83,13 +83,14 @@ jobs:
           name: Push Docker manifest.
           command: |
             source $BASH_ENV
-            echo $DOCKERHUB_PASS | \
-              docker login -u $DOCKERHUB_USER --password-stdin;
+            echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin;
 
             # Re-tag the ARM image as arm64 -- they're compatigble in this case.
+            docker pull "$REGISTRY/$IMAGE:$VERSION-arm"
             docker tag \
               "$REGISTRY/$IMAGE:$VERSION-arm" \
               "$REGISTRY/$IMAGE:$VERSION-arm64"
+            docker push "$REGISTRY/$IMAGE:$VERSION-arm64"
 
             manifest-tool push from-args \
               --platforms linux/amd64,linux/arm,linux/arm64 \

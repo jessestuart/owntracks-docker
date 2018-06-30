@@ -22,9 +22,8 @@ docker build -t ${IMAGE_ID} --build-arg target=$TARGET .
 echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
 
 # # Push push push
-# TODO: I think I actually handle this upstream?
-# docker push ${IMAGE_ID}
-# if [ $CIRCLE_BRANCH == 'master' ]; then
-#   docker tag "${IMAGE_ID}" "${REGISTRY}/${IMAGE}:latest-${TAG}"
-#   docker push "${REGISTRY}/${IMAGE}:latest-${TAG}"
-# fi
+docker push ${IMAGE_ID}
+if [ $CIRCLE_BRANCH == 'master' ]; then
+  docker tag "${IMAGE_ID}" "${REGISTRY}/${IMAGE}:latest-${TAG}"
+  docker push "${REGISTRY}/${IMAGE}:latest-${TAG}"
+fi
