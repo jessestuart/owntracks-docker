@@ -1,6 +1,7 @@
 ARG target=amd64
 FROM $target/debian:stretch
-COPY qemu-* /usr/bin
+
+COPY qemu-* .dummy-qemu /usr/bin/
 
 LABEL version="0.4" description="Mosquitto and OwnTracks Recorder"
 LABEL authors="Jan-Piet Mens <jpmens@gmail.com>, Giovanni Angoli <juzam76@gmail.com>"
@@ -20,15 +21,15 @@ RUN \
   apt-add-repository 'deb http://repo.owntracks.org/debian stretch main' && \
   apt-get update && \
   apt-get install -y \
-    libmosquitto1 \
-    libsodium18 \
+    curl \
     libcurl3 \
     liblua5.2-0 \
+    libmosquitto1 \
+    libsodium18 \
     mosquitto \
     mosquitto-clients \
-    supervisor \
     ot-recorder \
-    curl \
+    supervisor \
     && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
