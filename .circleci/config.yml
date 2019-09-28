@@ -25,7 +25,7 @@ workflows:
 
 shared: &shared
   docker:
-    - image: docker:18-git
+    - image: docker:stable-git
   steps:
     - checkout
 
@@ -34,7 +34,7 @@ shared: &shared
 
     - run:
         name: Install build dependencies.
-        command: apk add --no-cache bash curl git
+        command: apk add --upgrade --no-cache bash curl git
 
     - run:
         name: Add dynamic shared vars to env.
@@ -71,7 +71,7 @@ jobs:
       - run:
           name: Add dynamic shared vars to env.
           command: |
-            apk add --no-cache bash curl jq
+            apk add --upgrade --no-cache bash curl jq
             .circleci/load_env.sh
 
       - run:
